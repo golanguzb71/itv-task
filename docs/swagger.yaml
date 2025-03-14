@@ -1,0 +1,320 @@
+basePath: /api/v1
+definitions:
+  dto.CreateMovieDTO:
+    properties:
+      director:
+        type: string
+      duration:
+        minimum: 1
+        type: integer
+      plot:
+        type: string
+      rating:
+        maximum: 10
+        minimum: 0
+        type: number
+      release_date:
+        type: string
+      title:
+        type: string
+      year:
+        maximum: 2100
+        minimum: 1800
+        type: integer
+    required:
+    - director
+    - duration
+    - release_date
+    - title
+    - year
+    type: object
+  dto.ErrorResponseDTO:
+    properties:
+      error:
+        type: string
+    type: object
+  dto.LoginDTO:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  dto.MovieResponseDTO:
+    properties:
+      created_at:
+        type: string
+      director:
+        type: string
+      duration:
+        type: integer
+      id:
+        type: integer
+      plot:
+        type: string
+      rating:
+        type: number
+      release_date:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      year:
+        type: integer
+    type: object
+  dto.TokenResponseDTO:
+    properties:
+      token:
+        type: string
+    type: object
+  dto.UpdateMovieDTO:
+    properties:
+      director:
+        type: string
+      duration:
+        minimum: 1
+        type: integer
+      plot:
+        type: string
+      rating:
+        maximum: 10
+        minimum: 0
+        type: number
+      release_date:
+        type: string
+      title:
+        type: string
+      year:
+        maximum: 2100
+        minimum: 1800
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API Server for Movies CRUD Application
+  title: Movies CRUD API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT token
+      parameters:
+      - description: Login credentials
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.TokenResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      summary: User login
+      tags:
+      - auth
+  /movies:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all movies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.MovieResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      security:
+      - BearerAuth: []
+      summary: Get all movies
+      tags:
+      - movies
+    post:
+      consumes:
+      - application/json
+      description: Create a new movie with the provided data
+      parameters:
+      - description: Movie data
+        in: body
+        name: movie
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateMovieDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.MovieResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      security:
+      - BearerAuth: []
+      summary: Create a new movie
+      tags:
+      - movies
+  /movies/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a movie by its ID
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      security:
+      - BearerAuth: []
+      summary: Delete a movie
+      tags:
+      - movies
+    get:
+      consumes:
+      - application/json
+      description: Get a movie by its ID
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.MovieResponseDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      security:
+      - BearerAuth: []
+      summary: Get a movie by ID
+      tags:
+      - movies
+    put:
+      consumes:
+      - application/json
+      description: Update a movie with the provided data
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Movie data
+        in: body
+        name: movie
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateMovieDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.MovieResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      security:
+      - BearerAuth: []
+      summary: Update a movie
+      tags:
+      - movies
+  /movies/search:
+    get:
+      consumes:
+      - application/json
+      description: Search movies based on a query
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.MovieResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponseDTO'
+      security:
+      - BearerAuth: []
+      summary: Search movies
+      tags:
+      - movies
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

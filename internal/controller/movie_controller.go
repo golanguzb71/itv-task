@@ -20,15 +20,15 @@ func NewMovieController(movieService *service.MovieService) *MovieController {
 }
 
 // GetAllMovies godoc
-// @Summary Get all movies
-// @Description Get a list of all movies
-// @Tags movies
-// @Accept json
-// @Produce json
-// @Security BearerAuth
-// @Success 200 {array} dto.MovieResponseDTO
-// @Failure 500 {object} dto.ErrorResponseDTO
-// @Router /movies [get]
+//	@Summary		Get all movies
+//	@Description	Get a list of all movies
+//	@Tags			movies
+//	@Accept			json
+//	@Produce		json
+//	@Security		BearerAuth
+//	@Success		200	{array}		dto.MovieResponseDTO
+//	@Failure		500	{object}	dto.ErrorResponseDTO
+//	@Router			/movies [get]
 func (c *MovieController) GetAllMovies(ctx *gin.Context) {
 	movies, err := c.movieService.GetAllMovies()
 	if err != nil {
@@ -40,17 +40,17 @@ func (c *MovieController) GetAllMovies(ctx *gin.Context) {
 }
 
 // GetMovieByID godoc
-// @Summary Get a movie by ID
-// @Description Get a movie by its ID
-// @Tags movies
-// @Accept json
-// @Produce json
-// @Security BearerAuth
-// @Param id path int true "Movie ID"
-// @Success 200 {object} dto.MovieResponseDTO
-// @Failure 404 {object} dto.ErrorResponseDTO
-// @Failure 500 {object} dto.ErrorResponseDTO
-// @Router /movies/{id} [get]
+//	@Summary		Get a movie by ID
+//	@Description	Get a movie by its ID
+//	@Tags			movies
+//	@Accept			json
+//	@Produce		json
+//	@Security		BearerAuth
+//	@Param			id	path		int	true	"Movie ID"
+//	@Success		200	{object}	dto.MovieResponseDTO
+//	@Failure		404	{object}	dto.ErrorResponseDTO
+//	@Failure		500	{object}	dto.ErrorResponseDTO
+//	@Router			/movies/{id} [get]
 func (c *MovieController) GetMovieByID(ctx *gin.Context) {
 	id, err := strconv.ParseUint(ctx.Param("id"), 10, 32)
 	if err != nil {
@@ -68,17 +68,17 @@ func (c *MovieController) GetMovieByID(ctx *gin.Context) {
 }
 
 // CreateMovie godoc
-// @Summary Create a new movie
-// @Description Create a new movie with the provided data
-// @Tags movies
-// @Accept json
-// @Produce json
-// @Security BearerAuth
-// @Param movie body dto.CreateMovieDTO true "Movie data"
-// @Success 201 {object} dto.MovieResponseDTO
-// @Failure 400 {object} dto.ErrorResponseDTO
-// @Failure 500 {object} dto.ErrorResponseDTO
-// @Router /movies [post]
+//	@Summary		Create a new movie
+//	@Description	Create a new movie with the provided data
+//	@Tags			movies
+//	@Accept			json
+//	@Produce		json
+//	@Security		BearerAuth
+//	@Param			movie	body		dto.CreateMovieDTO	true	"Movie data"
+//	@Success		201		{object}	dto.MovieResponseDTO
+//	@Failure		400		{object}	dto.ErrorResponseDTO
+//	@Failure		500		{object}	dto.ErrorResponseDTO
+//	@Router			/movies [post]
 func (c *MovieController) CreateMovie(ctx *gin.Context) {
 	var movieDTO dto.CreateMovieDTO
 	if err := ctx.ShouldBindJSON(&movieDTO); err != nil {
@@ -96,19 +96,19 @@ func (c *MovieController) CreateMovie(ctx *gin.Context) {
 }
 
 // UpdateMovie godoc
-// @Summary Update a movie
-// @Description Update a movie with the provided data
-// @Tags movies
-// @Accept json
-// @Produce json
-// @Security BearerAuth
-// @Param id path int true "Movie ID"
-// @Param movie body dto.UpdateMovieDTO true "Movie data"
-// @Success 200 {object} dto.MovieResponseDTO
-// @Failure 400 {object} dto.ErrorResponseDTO
-// @Failure 404 {object} dto.ErrorResponseDTO
-// @Failure 500 {object} dto.ErrorResponseDTO
-// @Router /movies/{id} [put]
+//	@Summary		Update a movie
+//	@Description	Update a movie with the provided data
+//	@Tags			movies
+//	@Accept			json
+//	@Produce		json
+//	@Security		BearerAuth
+//	@Param			id		path		int					true	"Movie ID"
+//	@Param			movie	body		dto.UpdateMovieDTO	true	"Movie data"
+//	@Success		200		{object}	dto.MovieResponseDTO
+//	@Failure		400		{object}	dto.ErrorResponseDTO
+//	@Failure		404		{object}	dto.ErrorResponseDTO
+//	@Failure		500		{object}	dto.ErrorResponseDTO
+//	@Router			/movies/{id} [put]
 func (c *MovieController) UpdateMovie(ctx *gin.Context) {
 	id, err := strconv.ParseUint(ctx.Param("id"), 10, 32)
 	if err != nil {
@@ -132,17 +132,17 @@ func (c *MovieController) UpdateMovie(ctx *gin.Context) {
 }
 
 // DeleteMovie godoc
-// @Summary Delete a movie
-// @Description Delete a movie by its ID
-// @Tags movies
-// @Accept json
-// @Produce json
-// @Security BearerAuth
-// @Param id path int true "Movie ID"
-// @Success 204 "No Content"
-// @Failure 404 {object} dto.ErrorResponseDTO
-// @Failure 500 {object} dto.ErrorResponseDTO
-// @Router /movies/{id} [delete]
+//	@Summary		Delete a movie
+//	@Description	Delete a movie by its ID
+//	@Tags			movies
+//	@Accept			json
+//	@Produce		json
+//	@Security		BearerAuth
+//	@Param			id	path	int	true	"Movie ID"
+//	@Success		204	"No Content"
+//	@Failure		404	{object}	dto.ErrorResponseDTO
+//	@Failure		500	{object}	dto.ErrorResponseDTO
+//	@Router			/movies/{id} [delete]
 func (c *MovieController) DeleteMovie(ctx *gin.Context) {
 	id, err := strconv.ParseUint(ctx.Param("id"), 10, 32)
 	if err != nil {
@@ -160,16 +160,16 @@ func (c *MovieController) DeleteMovie(ctx *gin.Context) {
 }
 
 // SearchMovies godoc
-// @Summary Search movies
-// @Description Search movies based on a query
-// @Tags movies
-// @Accept json
-// @Produce json
-// @Security BearerAuth
-// @Param query query string true "Search query"
-// @Success 200 {array} dto.MovieResponseDTO
-// @Failure 500 {object} dto.ErrorResponseDTO
-// @Router /movies/search [get]
+//	@Summary		Search movies
+//	@Description	Search movies based on a query
+//	@Tags			movies
+//	@Accept			json
+//	@Produce		json
+//	@Security		BearerAuth
+//	@Param			query	query		string	true	"Search query"
+//	@Success		200		{array}		dto.MovieResponseDTO
+//	@Failure		500		{object}	dto.ErrorResponseDTO
+//	@Router			/movies/search [get]
 func (c *MovieController) SearchMovies(ctx *gin.Context) {
 	query := ctx.Query("query")
 	if query == "" {

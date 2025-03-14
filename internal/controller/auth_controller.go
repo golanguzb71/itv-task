@@ -18,16 +18,16 @@ func NewAuthController(authService *service.AuthService) *AuthController {
 }
 
 // Login godoc
-// @Summary User login
-// @Description Authenticate user and return JWT token
-// @Tags auth
-// @Accept json
-// @Produce json
-// @Param login body dto.LoginDTO true "Login credentials"
-// @Success 200 {object} dto.TokenResponseDTO
-// @Failure 400 {object} dto.ErrorResponseDTO
-// @Failure 401 {object} dto.ErrorResponseDTO
-// @Router /auth/login [post]
+//	@Summary		User login
+//	@Description	Authenticate user and return JWT token
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			login	body		dto.LoginDTO	true	"Login credentials"
+//	@Success		200		{object}	dto.TokenResponseDTO
+//	@Failure		400		{object}	dto.ErrorResponseDTO
+//	@Failure		401		{object}	dto.ErrorResponseDTO
+//	@Router			/auth/login [post]
 func (c *AuthController) Login(ctx *gin.Context) {
 	var loginDTO dto.LoginDTO
 	if err := ctx.ShouldBindJSON(&loginDTO); err != nil {

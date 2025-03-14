@@ -18,17 +18,17 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.uber.org/fx"
 	_ "golang.org/x/crypto/bcrypt"
-	_ "itv/cmd/api/docs"
+	_ "itv/docs"
 )
 
-// @title Movies CRUD API
-// @version 1.0
-// @description API Server for Movies CRUD Application
-// @host localhost:8080
-// @BasePath /api/v1
-// @securityDefinitions.apikey BearerAuth
-// @in header
-// @name Authorization
+// @title						Movies CRUD API
+// @version					1.0
+// @description				API Server for Movies CRUD Application
+// @host						localhost:8080
+// @BasePath					/api/v1
+// @securityDefinitions.apikey	BearerAuth
+// @in							header
+// @name						Authorization
 func main() {
 	app := fx.New(
 		fx.Provide(
