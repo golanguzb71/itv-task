@@ -34,8 +34,6 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API Server for Movies CRUD Application",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	LeftDelim:        "{{",
-	RightDelim:       "}}",
 }
 
 func init() {
