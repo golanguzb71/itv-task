@@ -87,7 +87,7 @@ func (s *MovieService) UpdateMovie(id uint, movieDTO dto.UpdateMovieDTO) (*dto.M
 	if movieDTO.Duration != 0 {
 		movie.Duration = movieDTO.Duration
 	}
-	if !movieDTO.ReleaseDate.IsZero() {
+	if movieDTO.ReleaseDate != "" {
 		movie.ReleaseDate = movieDTO.ReleaseDate
 	}
 

@@ -14,7 +14,7 @@ type Movie struct {
 	Plot        string         `gorm:"type:text" json:"plot"`
 	Rating      float32        `gorm:"type:decimal(3,1)" json:"rating"`
 	Duration    int            `gorm:"not null" json:"duration"` // in minutes
-	ReleaseDate time.Time      `json:"release_date"`
+	ReleaseDate string         `json:"release_date"`
 	CreatedAt   time.Time      `json:"created_at"`
 	UpdatedAt   time.Time      `json:"updated_at"`
 	DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`

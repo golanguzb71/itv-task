@@ -76,7 +76,7 @@ func newRouter(
 
 	api := router.Group("/api/v1")
 	{
-		authApi := api.Group("/authApi")
+		authApi := api.Group("/auth")
 		{
 			authApi.POST("/login", authController.Login)
 		}

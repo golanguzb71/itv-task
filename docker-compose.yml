@@ -1,0 +1,47 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: movies-api
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_ENV=development
+      - APP_PORT=8080
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=movies_db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_SSL_MODE=disable
+      - JWT_SECRET=development_jwt_secret_key
+      - JWT_EXPIRATION=24h
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=adminpassword
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - movies-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: movies-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=movies_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - movies-network
+networks:
+  movies-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
